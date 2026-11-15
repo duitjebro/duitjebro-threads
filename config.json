@@ -4,8 +4,8 @@
   "thread": {
     "minPostsPerThread": 4,
     "maxPostsPerThread": 5,
-    "threadsPerDay": 6,
-    "maxPostsPerDay": 30,
+    "threadsPerDay": 30,
+    "maxPostsPerDay": 150,
     "ctaLink": "duitjebro.netlify.app/?src=threads",
     "signOff": "Duit Je Bro"
   },

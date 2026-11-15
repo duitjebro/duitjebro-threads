@@ -1,6 +1,6 @@
 # Duit Je Bro Threads Autopilot
 
-Posts 6 threads of 4-5 posts a day (up to 30 posts) and replies to comments, mentions and relevant public posts, 24/7, with no PC switched on.
+Posts 30 threads of 4-5 posts a day (up to 150 posts) and replies to comments, mentions and relevant public posts, 24/7, with no PC switched on.
 
 ## How it fits together
 
@@ -55,7 +55,8 @@ At claude.ai/code/routines, create three tasks, each with repo `duitjebro-thread
 
 | Task | Prompt file | Schedule (cron, UTC) | Malaysia time |
 |---|---|---|---|
-| DJB thread | `routines/daily-thread.md` | `30 0,3,5,8,12,14 * * *` | 8:30am, 11:30am, 1:30pm, 4:30pm, 8:30pm, 10:30pm (6 threads x 4-5 posts = up to 30 posts) |
+| DJB thread | `routines/daily-thread.md` (slot protection) | `0 23,0-13 * * *` | every hour at :00, 7am to 9pm (15 threads) |
+| DJB thread B | `routines/daily-thread.md` (slot money) | `30 23,0-13 * * *` | every hour at :30, 7:30am to 9:30pm (15 threads); together 30 threads x 4-5 posts = up to 150 posts |
 | DJB engage | `routines/engage.md` | `0 0,3,6,9,12,15 * * *` | 8am, 11am, 2pm, 5pm, 8pm, 11pm |
 | DJB weekly report | `routines/weekly-report.md` | `0 2 * * 0` | Sunday 10am |
 | DJB join conversations | `routines/join-conversations.md` | `15 * * * *` | every hour at :15, about 4-5 comments each (100 a day) |

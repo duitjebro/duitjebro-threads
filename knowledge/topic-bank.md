@@ -5,7 +5,7 @@ Who: Z = Gen Z (18-28), M = Millennial (29-44), B = 45+.
 
 ## Recycling rule
 - Pick the topic used longest ago (check `Topic Ledger`). Topics never used come first.
-- A topic can come back once at least 10 other threads have gone out since it was last posted.
+- A topic can come back once at least 60 other threads (about 2 days) have gone out since it was last posted.
 - A recycled topic MUST have a new hook (new opening number or scenario) and a new framing: a different angle from the list below, a different audience or a different story. Never reuse a hook or a post from an earlier thread.
 - Framings to rotate: shock number · myth vs fact · "kalau" scenario · Jom kira2 calculation · checklist (Check X benda) · before vs after · gaji A vs gaji B · mistakes most people make · what happens step by step · question to korang.
 - Topics that got the most replies (`Performance` tab) recycle first.
