@@ -30,13 +30,11 @@ Posts 6 threads of 4-5 posts a day (up to 30 posts) and replies to comments, men
 > Without Meta's **App Review** (advanced access), keyword search only finds your own posts and mentions only show testers. Posting and replying to comments under your own threads work straight away. To join other people's posts, submit App Review for `threads_keyword_search` and `threads_manage_mentions` (needs business verification and a short screen recording).
 
 ### C. Get the 60-day token
-1. In the app dashboard, use the **Threads API → User Token Generator** to generate a token for `duitjebro`.
-2. On your PC, in this folder:
-   ```
-   node scripts/token.mjs exchange <short_token> <app_secret>
-   ```
-3. Keep the printed token private. It lasts 60 days; refresh it before then with
-   `node scripts/token.mjs refresh <token>` and update the secret in step D.
+1. In the app's **Settings**, put `https://duitjebro.netlify.app/` in **Redirect callback URLs**, **Uninstall callback URL** and **Delete callback URL**, then **Save**.
+2. On your PC, in this folder, in your own terminal: `node scripts/token.mjs`
+   It asks for the app ID and secret, opens the Threads login, and you paste back the address you land on.
+   It saves the 60-day token to `.env` (never uploaded) and prints it once.
+3. Before 50 days are up: `node scripts/token.mjs refresh`, then update the secret in step D.
 
 ### D. Cloud environment
 At claude.ai/code → environment settings → **Add environment** named `duitjebro-bot`:

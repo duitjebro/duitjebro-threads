@@ -3,6 +3,9 @@
 // network secret on host graph.threads.com that the proxy attaches as an
 // Authorization: Bearer header. Leave THREADS_TOKEN unset in the cloud.
 
+// Local runs read THREADS_TOKEN from the git-ignored .env made by scripts/token.mjs.
+try { process.loadEnvFile(new URL("../.env", import.meta.url)); } catch {}
+
 const HOST = process.env.THREADS_HOST || "https://graph.threads.com";
 const VERSION = "v1.0";
 const TOKEN = process.env.THREADS_TOKEN || "";
