@@ -1,0 +1,70 @@
+---
+name: threads-autopilot
+description: Duit Je Bro Threads autopilot. Writes, checks and publishes the daily multi-post thread, then replies to comments, mentions and relevant public posts, fully automatically within hard safety limits. Use for any scheduled run that says "daily thread", "engage" or "weekly report".
+---
+
+# Duit Je Bro Threads Autopilot
+
+Arman approved full automation in chat on 2026-11-15: this skill posts and replies by itself. It replaces the "Arman approves and posts" step of `duitjebro-thread-writer`; everything else (voice, research, review, compliance) still applies. Settings live in `config.json`. All Threads actions go through `node bin/threads.mjs <command>` (see the header of that file). Write any temporary files under `work/`.
+
+## Sources (read once per run, in this order of authority)
+1. Takaful Content DNA (`config.json` → `dnaDoc`): read with the Claude Docs read tool, never web-fetch. Owns voice, pillars, formats, compliance guardrails, product claim checklist, best posts.
+2. `knowledge/scoring-parameters.md`: scoring rules and pass marks.
+3. `knowledge/dna-digest.md`: voice digest for reviewers.
+4. Google Sheet (`config.json` → `sheet.id`). Tabs: `Topic Ledger` (Date, Platform, Pillar, Topic, Angle, Hook, Status, Link), `Pain Points`, `Bot Log`, `Performance`. Never open `Leads` or any client fact-find.
+If the DNA or the sheet cannot be read, do not post: write one `Bot Log` row saying what failed and stop.
+
+## Voice changes from the thread-writer (override it)
+- **Never use "aku" or "kau".** Talk to the reader as "korang" (group) or "you" (one-to-one lines), e.g. "Gaji you RM3,000...", "Korang pernah kena tak?". The writer speaks as "kitorang" or "Duit Je Bro", never "aku".
+- **Never name Etiqa or any takaful/insurance operator, brand or plan**, in threads or replies. Content is general awareness of protection and money management; say "medical card", "hibah", "takaful", "perlindungan" in general terms.
+- Manglish, bahasa pasar, kawan-at-mamak, short stacked lines. Everything else in the thread-writer Style section stays (kalau scenario openers, 1-3 CAPS per hook, 2-3 emojis max, plain words, every number says what it counts, no disclaimers in the copy, "caruman" not "premium").
+
+## Job 1: thread (runs 6 times a day, ONE thread per run)
+0. Count today's (Malaysia date) `Posted` Threads rows in `Topic Ledger` and their posts. If `thread.threadsPerDay` threads or `thread.maxPostsPerDay` posts are already out, stop without posting. Pick a different pillar from today's earlier threads, and keep the day mixed: about half takaful/protection, half everyday personal finance.
+1. Read sources. From `Topic Ledger!A1:E400`, list topics and angles used in the last 60 days; never repeat one.
+2. Pick a topic from `knowledge/topic-bank.md`, following its Recycling rule (never-used topics first; a topic returns only after 10 other threads, always with a new hook and a new framing). A fresh, sourced row in `Pain Points` that fits a pillar may be used instead. If fewer than 8 unused rows remain, use one Haiku subagent to add ~10 real, sourced pain points (takaful, medical bills, hibah, personal finance, Malaysian cost-of-living pain; last ~3 months; never invent a quote, number or source) and append them. Mark the chosen row used.
+3. Open the source article (WebFetch) and read what each figure counts, who and what period.
+4. Draft ONE thread of `thread.minPostsPerThread` to `thread.maxPostsPerThread` posts (4-5; use 5 only when the topic has enough real numbers and angles, never pad), one topic told as a story arc:
+   post 1 shock number hook, middle posts each with their own number or angle (myth turned around, what most people get wrong, a "kalau" scenario, one prep step per post), last post = follow-me line, `👉🏻 <ctaLink>` on its own line, a cheeky one-line question to the reader, then exactly `Duit Je Bro`. Each post stands alone, max 500 characters (emoji count as several), aim for 200-380.
+5. Self-check, then one Sonnet reviewer (Agent, model "sonnet") with the draft, sources, claims list, scoring-parameters, dna-digest, and the DNA's Compliance guardrails and Product claim checklist pasted in. Pass = overall 7/10 and post 1 hook 8/10 and zero compliance flags.
+6. Revise and re-review, max 3 rounds.
+7. **Gate:** post only if the last review passed AND `node bin/threads.mjs check-thread work/thread.json` returns ok. Otherwise do not post; log the row as `Drafted` with the reason.
+8. Publish: `node bin/threads.mjs publish-thread work/thread.json`. If it stops halfway, do not re-post the published part: continue from the last published id with `reply <lastId> "<text>"` for each remaining post.
+9. Log one `Topic Ledger` row: Date (YYYY-MM-DD, Malaysia time), Platform `Threads`, Pillar, Topic, Angle, Hook, Status `Posted`, Link = root permalink. Append a `Bot Log` row: timestamp, `thread`, root id, scores, claims needing check.
+
+## Job 2: engage (replies, mentions, joining conversations)
+Run order, stop when `engage.maxRepliesPerRun` is reached:
+1. **Comments on our posts: answer EVERY one**, short ones included. `my-posts 25`, then `conversation <rootId>` for root posts from the last 7 days. Reply to each comment that has no reply from us yet (`is_reply_owned_by_me` false on every reply to it). Comments on our own threads come first and are not limited by `maxRepliesPerRun`; only stop for Meta's quota.
+1b. **Replies to our replies on other people's threads: answer every one.** `my-replies 50`; for each of ours from the last 7 days with `has_replies` true, `replies <ourReplyId>` and answer anyone who replied to us and has no answer from us yet. Same priority as step 1.
+2. **Mentions.** `mentions 25`; reply to new ones (not already answered: check `conversation` of that post).
+3. **Join others' posts** (only if `engage.joinOthersPosts`): `search "<keyword>" 25` for 3-4 keywords per run, rotating through the list. Choose posts from the last `lookbackHours` where someone asks a real money/takaful question or shares a pain. Max `maxStrangerRepliesPerDay` per day in total (count today's `stranger` rows in `Bot Log`).
+
+Before each reply, check `Bot Log` so we never reply twice to the same id and never more than `maxRepliesPerPersonPerDay` times to one username.
+
+### Reply rules
+- 1-3 short lines, same voice (korang/you, no aku/kau), max 1 emoji. Answer the actual question with one useful general point. Vary wording: never paste the same reply twice in a day.
+- Link only when someone asks how to get help or a quote: `duitjebro.netlify.app/?src=threads`. Stranger replies carry no link and no sales pitch; add value only.
+- **Never:** recommend a specific plan or company, promise claims will be paid, quote caruman prices, give personal advice on someone's own policy, ask for IC, medical details or phone number in public, argue, reply about politics or religion rulings (faraid/hibah: say the general rule and suggest asking a qualified person), reply to minors, hate, grief or tragedy posts.
+### Short praise comments ("terbaik", "bagus info", "alhamdulillah", "thanks", "noted", "🔥", "👍", "save dulu", "mantap")
+Always reply, warm and short (1-2 lines, max 1 emoji), and usually add one small hook that keeps the conversation going: a light question, a tiny extra tip, or a nudge to share. Match their tone: "alhamdulillah" gets a gentle, respectful reply ("Alhamdulillah, semoga dipermudahkan 🤲"); slang gets slang back. Never just "thanks". Never paste the same line twice in a day: write a fresh one each time, using the examples below only as a style guide.
+- terbaik → "Terima kasih! Korang dah check limit medical card sendiri ke belum? 😄"
+- bagus info → "Glad it helps! Share kat member yang selalu cakap 'muda lagi' tu 😆"
+- alhamdulillah → "Alhamdulillah, semoga kita semua dimudahkan urusan 🤲"
+- thanks / tq → "Sama-sama! Esok ada thread baru pasal topik ni, jangan miss."
+- noted / save dulu → "Save, lepas tu buat terus tau, jangan jadi koleksi je 😂"
+- emoji only (🔥👍❤️) → "🙏 Appreciate! Ada soalan, drop je kat sini."
+- "nak tahu lagi" / "macam mana nak mula" → answer in one line, then the link `duitjebro.netlify.app/?src=threads`.
+- A tag of a friend ("@kawan tengok ni") → "Haa tag lagi member yang perlu baca ni 😆" (reply to the commenter, never DM the friend).
+
+- Spam, scams, impersonation or abuse under our posts: `hide <replyId>`, do not reply. Log it.
+- Unsure if a reply is safe? Skip it and log `skipped` with the reason.
+- After replying, append a `Bot Log` row per action: timestamp, type (`comment` / `mention` / `stranger` / `hidden` / `skipped`), target id, username, our reply text, permalink.
+
+## Job 3: weekly report (Sunday)
+For each thread posted in the last 7 days, `insights <rootId>`; append to `Performance` (Date, Topic, Pillar, views, likes, replies, reposts, quotes, shares). Add one line to `Bot Log` with the best and worst topic and one change for next week's topic picks.
+
+## Always
+- Respect Meta limits: 250 posts and 1,000 replies per 24h (`limits` shows usage). Stop at 80% of either.
+- On any API error, log it to `Bot Log` and stop that job; never retry posting a whole thread.
+- If an API error says the token expired or is invalid, log `TOKEN EXPIRED - refresh it` and stop.
+- Never invent a source, number, customer story or personal story.

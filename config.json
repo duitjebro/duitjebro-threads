@@ -1,0 +1,48 @@
+{
+  "account": "duitjebro",
+  "timezone": "Asia/Kuala_Lumpur",
+  "thread": {
+    "minPostsPerThread": 4,
+    "maxPostsPerThread": 5,
+    "threadsPerDay": 6,
+    "maxPostsPerDay": 30,
+    "ctaLink": "duitjebro.netlify.app/?src=threads",
+    "signOff": "Duit Je Bro"
+  },
+  "sheet": {
+    "id": "1v9ob-KNOLyxx7xV8NYyVqPgVlXBXSyhkGKnL4WlWkCs",
+    "ledgerTab": "Topic Ledger",
+    "painPointTab": "Pain Points",
+    "botLogTab": "Bot Log",
+    "performanceTab": "Performance",
+    "forbiddenTabs": ["Leads"]
+  },
+  "dnaDoc": "https://claude.ai/artifact/5QXthnfPhQHRN1T3XKQpHA",
+  "engage": {
+    "replyToOwnComments": true,
+    "replyToMentions": true,
+    "joinOthersPosts": true,
+    "maxRepliesPerRun": 60,
+    "answerAllOwnComments": true,
+    "maxStrangerRepliesPerDay": 10,
+    "maxRepliesPerPersonPerDay": 2,
+    "lookbackHours": 6,
+    "keywords": [
+      "takaful",
+      "medical card",
+      "kad perubatan",
+      "hibah",
+      "insurans",
+      "bil hospital",
+      "KWSP",
+      "PTPTN",
+      "gaji tak cukup",
+      "kos sara hidup",
+      "hutang kad kredit",
+      "Pay Later",
+      "simpan duit",
+      "wasiat",
+      "faraid"
+    ]
+  }
+}
