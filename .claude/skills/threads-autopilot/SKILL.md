@@ -12,6 +12,7 @@ Arman approved full automation in chat on 2026-11-15: this skill posts and repli
 2. `knowledge/scoring-parameters.md`: scoring rules and pass marks.
 3. `knowledge/dna-digest.md`: voice digest for reviewers.
 4. Google Sheet (`config.json` → `sheet.id`). Tabs: `Topic Ledger` (Date, Platform, Pillar, Topic, Angle, Hook, Status, Link), `Pain Points`, `Bot Log`, `Performance`. Never open `Leads` or any client fact-find.
+If `knowledge/scoring-parameters.md` or `knowledge/dna-digest.md` is missing, carry on: the reviewer scores against the DNA's voice, compliance and checklist sections, and the pass marks below. Note it once in `Bot Log`.
 If the DNA or the sheet cannot be read, do not post: write one `Bot Log` row saying what failed and stop.
 
 ## Voice changes from the thread-writer (override it)
