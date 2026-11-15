@@ -14,6 +14,22 @@ const WAIT_MS = Number(process.env.THREADS_PUBLISH_WAIT_MS ?? 30000); // Meta: w
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// Node's built-in fetch ignores HTTPS_PROXY. In the Claude cloud the network secret is
+// added by that proxy, so route through it whenever a proxy is set.
+const PROXY = process.env.HTTPS_PROXY || process.env.https_proxy || process.env.HTTP_PROXY || process.env.http_proxy;
+let doFetch = globalThis.fetch;
+let dispatcher;
+if (PROXY && !process.env.THREADS_DIRECT) {
+  try {
+    const undici = await import("undici");
+    dispatcher = new undici.ProxyAgent(PROXY);
+    doFetch = undici.fetch;
+  } catch {
+    // undici not installed: fall back to a direct connection.
+  }
+}
+export const via = () => (dispatcher ? "proxy" : "direct");
+
 async function call(method, path, params = {}) {
   const url = new URL(`${HOST}/${VERSION}/${path.replace(/^\//, "")}`);
   const body = new URLSearchParams();
@@ -24,14 +40,16 @@ async function call(method, path, params = {}) {
   const headers = {};
   if (TOKEN) headers.Authorization = `Bearer ${TOKEN}`;
   for (let attempt = 1; attempt <= 3; attempt++) {
-    const res = await fetch(url, { method, headers, body: method === "GET" ? undefined : body });
+    const res = await doFetch(url, { method, headers, body: method === "GET" ? undefined : body, dispatcher });
     const text = await res.text();
     let json;
     try { json = JSON.parse(text); } catch { json = { raw: text }; }
     if (res.ok) return json;
     const transient = res.status >= 500 || res.status === 429;
     if (!transient || attempt === 3) {
-      const msg = json?.error?.message || text.slice(0, 300);
+      let msg = json?.error?.message || text.slice(0, 300);
+      // 400 + this message means no token arrived at all (a wrong token gives 401).
+      if (res.status === 400 && /Invalid OAuth 2\.0 Access Token/.test(msg)) msg += ` (no token was sent; connection: ${via()})`;
       throw new Error(`Threads API ${method} ${path} -> ${res.status}: ${msg}`);
     }
     await sleep(5000 * attempt);

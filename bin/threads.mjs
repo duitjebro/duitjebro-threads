@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // CLI used by the cloud scheduled tasks. Every command prints JSON.
 //   node bin/threads.mjs whoami
+//   node bin/threads.mjs diag                         (connection check, prints no secrets)
 //   node bin/threads.mjs check-thread thread.json      (no posting; validates lengths)
 //   node bin/threads.mjs publish-thread thread.json    ({"posts":["...", "..."]})
 //   node bin/threads.mjs my-posts [limit]
@@ -28,6 +29,14 @@ const readThread = (file) => {
 
 const commands = {
   whoami: () => T.me(),
+  // Connection check that never prints secrets: Node version, proxy vs direct, and whether /me answers.
+  diag: async () => {
+    const proxyVars = ["HTTPS_PROXY", "https_proxy", "HTTP_PROXY", "http_proxy", "NO_PROXY", "no_proxy", "NODE_EXTRA_CA_CERTS"]
+      .filter((k) => process.env[k]);
+    let me;
+    try { me = { ok: true, username: (await T.me()).username }; } catch (e) { me = { ok: false, error: e.message }; }
+    return { node: process.version, connection: T.via(), proxyVarsSet: proxyVars, threadsTokenEnvSet: Boolean(process.env.THREADS_TOKEN), me };
+  },
   "check-thread": () => {
     const posts = readThread(a);
     return { ok: T.checkPosts(posts).length === 0, problems: T.checkPosts(posts), bytes: posts.map(T.postLength) };
