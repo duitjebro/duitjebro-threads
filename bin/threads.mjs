@@ -27,6 +27,17 @@ const readThread = (file) => {
   return posts;
 };
 
+// Words a Duit Je Bro thread (Job 1) must never contain: aku/kau voice, brand names, declarations.
+const BANNED = [
+  [/\b(aku|kau|ko)\b/i, "aku/kau voice (use korang/you)"],
+  [/\betiqa\b/i, "brand name in a thread"],
+  [/\bcontoh\b/i, '"contoh" (use Bayangkan / kalau / lebih kurang)'],
+  [/info umum|angka bayangan|bukan angka rasmi|terma penuh|dokumen polisi|bukan nasihat/i, "disclaimer line"],
+  [/\bpremium\b/i, '"premium" (use caruman)'],
+];
+const bannedWords = (posts) =>
+  posts.flatMap((t, i) => BANNED.filter(([re]) => re.test(t)).map(([re, why]) => `post ${i + 1}: "${t.match(re)[0]}" - ${why}`));
+
 const commands = {
   whoami: () => T.me(),
   // Connection check that never prints secrets: Node version, proxy vs direct, and whether /me answers.
@@ -39,7 +50,8 @@ const commands = {
   },
   "check-thread": () => {
     const posts = readThread(a);
-    return { ok: T.checkPosts(posts).length === 0, problems: T.checkPosts(posts), bytes: posts.map(T.postLength) };
+    const problems = [...T.checkPosts(posts), ...bannedWords(posts)];
+    return { ok: problems.length === 0, problems, bytes: posts.map(T.postLength) };
   },
   "publish-thread": () => T.publishThread(readThread(a), { replyControl: "everyone" }),
   "my-posts": () => T.myPosts({ limit: Number(a) || 25 }),
