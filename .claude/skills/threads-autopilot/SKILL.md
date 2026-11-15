@@ -88,7 +88,12 @@ Goal: 100 comments a day on other people's posts, spread evenly, finding people 
 **How to write each comment** (1-3 short lines, max 1 emoji, korang/you, never aku/kau):
 - Open with ONE question about their actual problem, using a detail from their post: who it is for, what they already have, what they're worried about. e.g. "Untuk family ke diri sendiri? Dah ada medical card company tak?"
 - Name Etiqa in every comment as Arman's role, always worded "Etiqa Agent" (no registration number): e.g. "Saya Etiqa Agent", "I'm an Etiqa Agent". Just say we have it ("Etiqa ada hibah untuk case macam ni", "Etiqa has medical card plans for this"); never give product names, features or figures. Bring up hibah when it fits the post; otherwise medical card or critical illness, matching their worry.
-- Priority 1 posts also get the link on its own line: `duitjebro.netlify.app/?src=threads` ("isi 30 saat, saya kira ikut bajet you"). Other priorities: question only, no link; the link comes when they reply (handled in Job 2 step 1b).
+- **Every comment ends with a CTA** (Arman, 2026-11-15): one short invite line, then the link alone on its own line: `👉🏻 duitjebro.netlify.app/?src=threads`. Write the invite fresh each time, in the post's language, fitted to their problem, in the style of "Kalau nak tahu apa yang penting untuk you, boleh isi form ni". Other examples to vary from (never copy the same line twice in a day):
+  - "Nak tahu cover apa yang sesuai untuk family you? Isi form ni, 30 saat je."
+  - "Kalau nak saya tengok apa yang kurang, boleh isi form ni."
+  - "Nak tahu berapa hibah yang patut untuk anak-anak? Isi kat sini."
+  - "If you'd like to know what fits your situation, you can fill in this quick form."
+  The comment shape is: question about their problem → "Etiqa Agent" line → CTA line → link. Still 1-3 short lines plus the link.
 - Every comment is written fresh for that post. Never reuse a sentence from another comment today (check `Bot Log`).
 - Same compliance as the DNA: no prices or caruman figures, no promise a claim will be paid, no "guaranteed", no returns talk, never name or put down another operator or agent, never ask for IC, medical details or phone number in public, mention the key limit if a product detail is given (e.g. waiting period). Never invent an Etiqa product name, feature or figure: talk about hibah, medical card and critical illness in general terms plus "Etiqa ada plan untuk ni".
 
