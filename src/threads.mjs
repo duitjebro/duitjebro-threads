@@ -110,9 +110,9 @@ export const replies = (mediaId, { limit = 100 } = {}) =>
 export const mentions = ({ limit = 25 } = {}) =>
   call("GET", "me/mentions", { fields: "id,text,username,timestamp,permalink,has_replies", limit });
 
-export const keywordSearch = (q, { type = "RECENT", limit = 25, since } = {}) =>
+export const keywordSearch = (q, { type = "RECENT", limit = 25, since, author } = {}) =>
   call("GET", "keyword_search", {
-    q, search_type: type, limit, since,
+    q, search_type: type, limit, since, author_username: author,
     fields: "id,text,username,timestamp,permalink,has_replies,is_reply",
   });
 

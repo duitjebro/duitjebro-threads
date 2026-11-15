@@ -9,6 +9,7 @@
 //   node bin/threads.mjs conversation <mediaId>
 //   node bin/threads.mjs mentions [limit]
 //   node bin/threads.mjs search "<keyword>" [limit]
+//   node bin/threads.mjs author-check <username>      (their posts mentioning takaful/insurance/agent)
 //   node bin/threads.mjs reply <id> "<text>"
 //   node bin/threads.mjs hide <replyId>
 //   node bin/threads.mjs insights <mediaId>
@@ -38,6 +39,16 @@ const commands = {
   replies: () => T.replies(a),
   mentions: () => T.mentions({ limit: Number(a) || 25 }),
   search: () => T.keywordSearch(a, { limit: Number(b) || 25 }),
+  // Does this account post about selling takaful/insurance? Runs several searches limited to that author.
+  "author-check": async () => {
+    const terms = ["takaful", "insurans", "insurance", "ejen", "agent", "medical card", "hibah", "quotation", "asuransi"];
+    const hits = [];
+    for (const q of terms) {
+      const r = await T.keywordSearch(q, { type: "TOP", limit: 5, author: a });
+      for (const p of r.data || []) hits.push({ term: q, text: (p.text || "").slice(0, 200), permalink: p.permalink });
+    }
+    return { username: a, postsMatching: hits.length, samples: hits.slice(0, 8) };
+  },
   reply: () => T.reply(a, b),
   hide: () => T.hideReply(a, true),
   insights: () => T.insights(a),
