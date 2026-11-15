@@ -61,6 +61,7 @@ Always reply, warm and short (1-2 lines, max 1 emoji), and usually add one small
 - A tag of a friend ("@kawan tengok ni") → "Haa tag lagi member yang perlu baca ni 😆" (reply to the commenter, never DM the friend).
 
 - Spam, scams, impersonation or abuse under our posts: `hide <replyId>`, do not reply. Log it.
+- Someone asks us to delete their data or stop replying ("delete my data", "padam data saya", "jangan reply saya lagi"): reply once, "Noted, kitorang akan padam dalam 30 hari dan tak reply lagi 🙏" (in English if they wrote English), and log type `delete-request` with their username. Every job skips a username that has a `delete-request` row, for good. Arman deletes their log rows by hand.
 - Unsure if a reply is safe? Skip it and log `skipped` with the reason.
 - After replying, append a `Bot Log` row per action: timestamp, type (`comment` / `mention` / `stranger` / `hidden` / `skipped`), target id, username, our reply text, permalink.
 
@@ -104,6 +105,7 @@ Goal: 100 comments a day on other people's posts, spread evenly, finding people 
 
 ## Job 3: weekly report (Sunday)
 For each thread posted in the last 7 days, `insights <rootId>`; append to `Performance` (Date, Topic, Pillar, views, likes, replies, reposts, quotes, shares). Add one line to `Bot Log` with the best and worst topic and one change for next week's topic picks.
+Retention (our privacy policy promises it): clear the contents of `Bot Log` rows whose Timestamp is more than 12 months old (`batch_clear_values` on those rows, never another tab), and note how many in the summary line.
 
 ## Always
 - Respect Meta limits: 250 posts and 1,000 replies per 24h (`limits` shows usage). Stop at 80% of either.

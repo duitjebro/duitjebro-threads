@@ -11,6 +11,7 @@ Posts 6 threads of 4-5 posts a day (up to 30 posts) and replies to comments, men
 | Clock | 3 Claude cloud scheduled tasks at claude.ai/code/routines | your Claude plan |
 | Memory | DuitJeBro CRM Google Sheet (Topic Ledger, Pain Points, Bot Log, Performance) | free |
 | Code home | private GitHub repo | free |
+| Meta App Review | `app-review/APP-REVIEW-GUIDE.md` (privacy pages, form text, recording script; `node review/server.mjs` for the recordings) | free |
 
 ## Setup (one time, about 45 minutes)
 
