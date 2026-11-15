@@ -57,6 +57,7 @@ At claude.ai/code/routines, create three tasks, each with repo `duitjebro-thread
 | DJB thread | `routines/daily-thread.md` | `30 0,3,5,8,12,14 * * *` | 8:30am, 11:30am, 1:30pm, 4:30pm, 8:30pm, 10:30pm (6 threads x 4-5 posts = up to 30 posts) |
 | DJB engage | `routines/engage.md` | `0 0,3,6,9,12,15 * * *` | 8am, 11am, 2pm, 5pm, 8pm, 11pm |
 | DJB weekly report | `routines/weekly-report.md` | `0 2 * * 0` | Sunday 10am |
+| DJB join conversations | `routines/join-conversations.md` | `15 * * * *` | every hour at :15, about 4-5 comments each (100 a day) |
 
 Paste the text of each prompt file as the task prompt. Press **Run now** on each once to test.
 
