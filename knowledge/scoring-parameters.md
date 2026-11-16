@@ -2,7 +2,7 @@
 
 Owner: Arman. Reviewer (Sonnet) scores every draft. Each parameter /10, then an overall /10.
 **Pass mark: 7/10 overall.** Below 7: revise and review again until 7 or higher. Drafts always return with the score.
-**Hook rule (added 30 Oct): the hook of EVERY post in a thread (the first line of each post) must score at least 8/10.** Any hook under 8 is revised and reviewed again, even if the overall score passes.
+**Hook rule (changed 16 Nov, was 8): the hook of EVERY post in a thread (the first line of each post) must score at least 7/10.** Any hook under 7 is revised and reviewed again, even if the overall score passes.
 **Re-score rule (added 31 Oct): every revision is scored again by the Sonnet reviewer before it goes to Arman, even a small tweak (one line, one word, one emoji). No unscored changes. Each message to Arman states the score of the exact text in it. If Arman asks for a small edit, make it, re-score it, then send it.** When Arman supplies his own wording, keep it and fix only what the reviewer flags, with the smallest change.
 **Pronoun rule (DNA, 15 Nov): posts and replies say "you", "korang", "kita", "kitorang". Never "aku" or "kau".** A draft that uses "kau" or "aku" loses points on Voice match. Older examples below were written with "kau": keep their tone, swap the pronoun.
 
@@ -23,4 +23,4 @@ Other copy preferences: no "pakar cakap" attributions inside the post (sources l
 ## Idea pipeline
 1. Haiku subagent lists pain points Malaysians voice about money and personal finance as well as insurance/takaful (forums, news, social commentary).
 2. Script writer picks an idea from those findings that is not in the Topic Ledger, or reuses a topic with a new angle, and opens the one article behind it to read each figure in full.
-3. Writer drafts, Sonnet reviews, revise until 7/10 or higher overall AND every post hook is 8/10 or higher, re-scoring after every change, then log to the Topic Ledger as Drafted (Checked if the final review passed).
+3. Writer drafts, Sonnet reviews, revise until 7/10 or higher overall AND every post hook is 7/10 or higher, re-scoring after every change, then log to the Topic Ledger as Drafted (Checked if the final review passed).
