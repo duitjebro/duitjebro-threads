@@ -1,5 +1,7 @@
 # Duit Je Bro: Content DNA digest (made 3 Nov 2026; synced to the DNA's 15 Nov 2026 edits on 15 Nov)
 
+> **History only since 16 Nov 2026.** Thread runs no longer read this file. The rules the writer and reviewer use are in `knowledge/review-sheet.md`; change them there.
+
 PURPOSE: a short copy of the voice, format and pillar parts of the Takaful Content DNA, handed to reviewer agents so they do not each re-read the whole doc. It is NOT the source of truth. https://claude.ai/artifact/5QXthnfPhQHRN1T3XKQpHA wins on any difference. The compliance guardrails and the Product claim checklist are deliberately NOT copied here (they live only in the DNA): the writer pastes those two sections, read fresh from the DNA, into each reviewer prompt. NEW 15 Nov guardrail to expect in that paste: never name Etiqa or any operator, brand or plan in posts or replies (general awareness only).
 
 ## Who

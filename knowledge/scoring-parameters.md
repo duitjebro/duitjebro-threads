@@ -1,5 +1,7 @@
 # Duit Je Bro: Draft Scoring Parameters (updated 2 Nov 2026; synced to the DNA's 15 Nov 2026 edits on 15 Nov)
 
+> **History only since 16 Nov 2026.** Thread runs no longer read this file. The rules the writer and reviewer use are in `knowledge/review-sheet.md`; change them there.
+
 Owner: Arman. Reviewer (Sonnet) scores every draft. Each parameter /10, then an overall /10.
 **Pass mark: 7/10 overall.** Below 7: revise and review again until 7 or higher. Drafts always return with the score.
 **Hook rule (changed 16 Nov, was 8): the hook of EVERY post in a thread (the first line of each post) must score at least 7/10.** Any hook under 7 is revised and reviewed again, even if the overall score passes.

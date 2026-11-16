@@ -6,6 +6,9 @@
     "maxPostsPerThread": 5,
     "threadsPerDay": 30,
     "maxPostsPerDay": 150,
+    "maxReviews": 2,
+    "maxFigures": 2,
+    "maxEmojisPerPost": 3,
     "ctaLink": "duitjebro.netlify.app/?src=threads",
     "signOff": "Duit Je Bro"
   },

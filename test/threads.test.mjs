@@ -27,6 +27,7 @@ await new Promise((r) => server.listen(0, r));
 process.env.THREADS_HOST = `http://127.0.0.1:${server.address().port}`;
 process.env.THREADS_PUBLISH_WAIT_MS = "0";
 process.env.THREADS_TOKEN = "test-token";
+process.env.THREADS_DIRECT = "1"; // the fake server is local: never go through a proxy
 const T = await import("../src/threads.mjs");
 
 test("publishThread chains each post as a reply to the previous one", async () => {
@@ -50,6 +51,49 @@ test("checkPosts rejects posts over 500 bytes, counting emoji as bytes", () => {
 
 test("API errors surface Meta's message", async () => {
   await assert.rejects(() => T.insights("zzz"), /404: nope/);
+});
+
+const { checkThread, figures, emojiCount } = await import("../src/checks.mjs");
+const good = [
+  "Kalau you TAKDE esok, siapa bayar sewa rumah? 😬\n\nGaji masuk, bil keluar. Itu rutin you tiap bulan kan?",
+  "Bayangkan anak you tanya kenapa kena pindah rumah.\n\nBukan sebab you tak sayang. Sebab takde siapa ganti gaji you.",
+  "Saya faham, bulan-bulan pun dah ketat.\n\nMula dengan satu benda je: tulis semua bil tetap you.",
+  "Protection ni bukan kos.\n\nIni cara you cakap sayang kat family, walaupun you dah takde.",
+  "Follow saya untuk tip duit macam ni.\n\n👉🏻 duitjebro.netlify.app/?src=threads\n\nFamily you tahu tak nak buat apa kalau jadi apa-apa? 😅\n\nDuit Je Bro",
+];
+
+test("checkThread passes a clean thread", () => {
+  assert.deepEqual(checkThread(good), []);
+});
+
+test("checkThread catches voice, brand, jargon, labels and stiff words", () => {
+  const bad = (text) => checkThread([text, ...good.slice(1)]).join(" | ");
+  assert.match(bad("Kitorang faham."), /saya/);
+  assert.match(bad("Aku dah cakap."), /aku\/kau/);
+  assert.match(bad("Etiqa ada plan."), /never name/);
+  assert.match(bad("Plan AIA pun sama."), /never name/);
+  assert.match(bad("Ada deductible RM500."), /jargon/);
+  assert.match(bad("Check waiting period dulu."), /jargon/);
+  assert.match(bad("Hook: Gaji you habis?"), /section label/);
+  assert.match(bad("Nanti gaji you jadi separuh."), /kalau/);
+  assert.match(bad("Sekitar 3 bulan je."), /stiff/);
+  assert.match(bad("Info umum sahaja."), /disclaimer/);
+  assert.equal(checkThread(["Nanti kalau gaji you jadi separuh, macam mana?", ...good.slice(1)]).length, 0);
+});
+
+test("checkThread caps figures at 2 and emojis at 3 per post", () => {
+  assert.deepEqual(figures(["Gaji RM3,000, sewa RM800.", "Gaji RM3,000 tu 48% je. 3 anak, 6 bulan."]), ["rm3,000", "rm800", "48%"]);
+  assert.match(checkThread(["Gaji RM3,000, sewa RM800, 48% orang.", ...good.slice(1)]).join(), /3 different money\/percent figures/);
+  assert.equal(emojiCount("👉🏻 ok 😬😅"), 3);
+  assert.match(checkThread(["Wei 😬😅💀🔥", ...good.slice(1)]).join(), /4 emojis/);
+});
+
+test("checkThread enforces post count, CTA link line and sign-off", () => {
+  assert.match(checkThread(good.slice(0, 3)).join(), /needs 4-5/);
+  const noTag = [...good.slice(0, 4), good[4].replace("/?src=threads", "")];
+  assert.match(checkThread(noTag).join(" | "), /must be exactly/);
+  const noSign = [...good.slice(0, 4), good[4].replace("\n\nDuit Je Bro", "")];
+  assert.match(checkThread(noSign).join(), /must end with exactly/);
 });
 
 test.after(() => server.close());

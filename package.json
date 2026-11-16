@@ -8,7 +8,7 @@
   "scripts": {
     "mcp": "node mcp/server.mjs",
     "whoami": "node bin/threads.mjs whoami",
-    "test": "node --test test/"
+    "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",

@@ -2,7 +2,7 @@
 // CLI used by the cloud scheduled tasks. Every command prints JSON.
 //   node bin/threads.mjs whoami
 //   node bin/threads.mjs diag                         (connection check, prints no secrets)
-//   node bin/threads.mjs check-thread thread.json      (no posting; validates lengths)
+//   node bin/threads.mjs check-thread thread.json      (no posting; length, banned words, jargon, figures, emojis, CTA)
 //   node bin/threads.mjs publish-thread thread.json    ({"posts":["...", "..."]})
 //   node bin/threads.mjs my-posts [limit]
 //   node bin/threads.mjs my-replies [limit]           (our replies, incl. on other people's threads)
@@ -17,6 +17,7 @@
 //   node bin/threads.mjs limits
 import { readFileSync } from "node:fs";
 import * as T from "../src/threads.mjs";
+import { checkThread, figures } from "../src/checks.mjs";
 
 const [cmd, a, b] = process.argv.slice(2);
 const out = (x) => console.log(JSON.stringify(x, null, 2));
@@ -27,16 +28,10 @@ const readThread = (file) => {
   return posts;
 };
 
-// Words a Duit Je Bro thread (Job 1) must never contain: aku/kau voice, brand names, declarations.
-const BANNED = [
-  [/\b(aku|kau|ko)\b/i, "aku/kau voice (use korang/you)"],
-  [/\betiqa\b/i, "brand name in a thread"],
-  [/\bcontoh\b/i, '"contoh" (use Bayangkan / kalau / lebih kurang)'],
-  [/info umum|angka bayangan|bukan angka rasmi|terma penuh|dokumen polisi|bukan nasihat/i, "disclaimer line"],
-  [/\bpremium\b/i, '"premium" (use caruman)'],
-];
-const bannedWords = (posts) =>
-  posts.flatMap((t, i) => BANNED.filter(([re]) => re.test(t)).map(([re, why]) => `post ${i + 1}: "${t.match(re)[0]}" - ${why}`));
+// Thread settings (post count, figure and emoji caps, CTA link) for check-thread.
+const threadConfig = () => {
+  try { return JSON.parse(readFileSync(new URL("../config.json", import.meta.url), "utf8")).thread || {}; } catch { return {}; }
+};
 
 const commands = {
   whoami: () => T.me(),
@@ -48,10 +43,11 @@ const commands = {
     try { me = { ok: true, username: (await T.me()).username }; } catch (e) { me = { ok: false, error: e.message }; }
     return { node: process.version, connection: T.via(), proxyVarsSet: proxyVars, threadsTokenEnvSet: Boolean(process.env.THREADS_TOKEN), me };
   },
+  // No posting. Mechanical rules only (see src/checks.mjs); run it before every review.
   "check-thread": () => {
     const posts = readThread(a);
-    const problems = [...T.checkPosts(posts), ...bannedWords(posts)];
-    return { ok: problems.length === 0, problems, bytes: posts.map(T.postLength) };
+    const problems = checkThread(posts, threadConfig());
+    return { ok: problems.length === 0, problems, bytes: posts.map(T.postLength), figures: figures(posts) };
   },
   "publish-thread": () => T.publishThread(readThread(a), { replyControl: "everyone" }),
   "my-posts": () => T.myPosts({ limit: Number(a) || 25 }),
