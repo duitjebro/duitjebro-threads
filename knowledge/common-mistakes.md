@@ -14,6 +14,6 @@ These are what the reviewer flagged most in the Bot Log (15-16 Nov 2026), plus t
 10. **Journalist wording.** "Satu laporan media", "pakar cakap", "menurut". Say "news ada cakap" or drop the attribution (the source lives in the claims list).
 11. **A product explained with no limit, or with jargon.** Say the limit in plain words in one line ("kena tunggu beberapa bulan dulu baru boleh claim"), never as a disclaimer.
 12. **Two questions in the last post.** Only one, the cheeky one.
-13. **Scolding or shaming.** Admit the upside first ("memang best"), then the turn. "Saya faham", never "you patut malu".
+13. **Scolding or shaming.** Admit the upside first ("memang best"), then the turn. Show you understand their situation in a fresh line (not a stock "saya faham"), never "you patut malu".
 14. **An invented person.** No "kawan saya", "client saya", "ada sorang makcik" unless it is in the source. Use "Bayangkan".
 15. **The wrong emoji on a heavy topic.** No 💀 or 😂 on death, illness or a family's loss; use 😬, 🥺 or none.
