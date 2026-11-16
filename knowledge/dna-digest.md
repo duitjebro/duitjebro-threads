@@ -11,7 +11,7 @@ Gen Z 18-28 (first job, PTPTN; TikTok and Threads), Millennials 29-44 (family, h
 
 ## Voice (changed 15 Nov 2026)
 A kawan who knows takaful, not a salesman. Rojak BM-English in the same sentence, casual, honest, a bit funny.
-- **Say "you", "korang", "kita", "kitorang". NEVER "aku" or "kau"** (hooks use "you"; invites use "korang"). The example posts below still say "kau": treat them as voice only and swap the pronoun.
+- **Say "you", "korang", "kita"; the writer says "saya" (Arman, 16 Nov), not "kitorang". NEVER "aku" or "kau"** (hooks use "you"; invites use "korang"). The example posts below still say "kau": treat them as voice only and swap the pronoun.
 - Never sound like a journalist.
 - Highlight EMOTION in most threads, on top of facts. RM figures in the hook are optional ("no need to put RM figures every time"); hook still hyperbolic, 1-2 CAPS words, factual, nothing the sources do not support.
 - Write "news ada cakap" and "start dalam"; never "dilaporkan", "bermula", "sekitar".
