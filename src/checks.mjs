@@ -6,7 +6,6 @@ const MAX_BYTES = 500;
 
 // [pattern, what is wrong + what to write instead]
 const BANNED = [
-  [/\b(aku|kau|ko)\b/i, "aku/kau voice (use you/korang)"],
   [/\b(kitorang|kitaorang|kami)\b/i, 'writer says "saya", never kitorang/kami'],
   [/\bcontoh\b/i, '"contoh" (use Bayangkan / kalau / lebih kurang)'],
   [/info umum|angka bayangan|bukan angka rasmi|terma penuh|dokumen polisi|bukan nasihat/i, "disclaimer line"],
@@ -94,6 +93,14 @@ export function checkThread(posts, thread = {}) {
       if (m !== ctaLink) say(i, `link "${m}" must be exactly ${ctaLink}`);
     }
   });
+
+  // One voice per thread (Arman, 17 Nov 2026): saya + you/korang, or aku + kau/korang. Never mixed.
+  const all = posts.join("\n");
+  const akuKau = all.match(/\b(aku|kau)\b/i);
+  const sayaYou = all.match(/\b(saya|you)\b/i);
+  if (akuKau && sayaYou) {
+    problems.push(`voice: mixes "${akuKau[0]}" with "${sayaYou[0]}" (one voice per thread: saya + you/korang, or aku + kau/korang)`);
+  }
 
   const figs = figures(posts);
   if (figs.length > maxFigures) {

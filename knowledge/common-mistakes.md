@@ -2,7 +2,7 @@
 
 These are what the reviewer flagged most in the Bot Log (15-16 Nov 2026), plus the 16 Nov format rules. Go through every line after check-thread passes and before calling the reviewer. Update this list when the weekly report names new top fail reasons.
 
-1. **Weak hook on posts 2, 3 and 4.** The most common fail. The first line of EVERY post needs its own punch: a feeling, a scene or a question with 1-3 CAPS words. Never open a middle post as a continuation ("Lepas tu...", "Sebab tu...", "Kenapa jadi macam tu?").
+1. **Weak hook on posts 2, 3 and 4.** The most common fail. The first line of EVERY post needs its own punch: a feeling, a scene or a question (CAPS optional, only on impactful words). Never open a middle post as a continuation ("Lepas tu...", "Sebab tu...", "Kenapa jadi macam tu?").
 2. **A scary scene stated as certain.** "Family you AKAN hilang rumah" fails. Write "Kalau...", "Bayangkan...", "boleh jadi".
 3. **Reads like a fact sheet.** More than 1-2 real figures, or a post that is only numbers. Swap a number for a scene: the anak, the sewa, the mak yang call.
 4. **A number with no label.** Each figure says what it counts, who and when ("anak muda umur 30 tahun dan ke bawah", "tahun 2019"). Never put two figures of different kinds side by side.

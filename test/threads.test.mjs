@@ -69,7 +69,8 @@ test("checkThread passes a clean thread", () => {
 test("checkThread catches voice, brand, jargon, labels and stiff words", () => {
   const bad = (text) => checkThread([text, ...good.slice(1)]).join(" | ");
   assert.match(bad("Kitorang faham."), /saya/);
-  assert.match(bad("Aku dah cakap."), /aku\/kau/);
+  assert.match(bad("Aku dah cakap."), /voice: mixes/);
+  assert.deepEqual(checkThread(["Kau dah cakap. Aku pun.", "Gaji kau habis?", "Korang pernah?", "Follow aku.\n\n👉🏻 duitjebro.netlify.app/?src=threads\n\nDuit Je Bro"]), []);
   assert.match(bad("Etiqa ada plan."), /never name/);
   assert.match(bad("Plan AIA pun sama."), /never name/);
   assert.match(bad("Ada deductible RM500."), /jargon/);
