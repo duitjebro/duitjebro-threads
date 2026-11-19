@@ -9,6 +9,8 @@
     "maxReviews": 2,
     "maxFigures": 2,
     "maxEmojisPerPost": 3,
+    "provocativeHooksPerDay": 5,
+    "provocativeWindows": ["09:30", "11:00", "15:30", "17:00", "21:00"],
     "ctaLink": "duitjebro.netlify.app/?src=threads",
     "signOff": "Duit Je Bro"
   },
