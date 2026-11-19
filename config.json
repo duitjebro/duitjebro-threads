@@ -4,8 +4,9 @@
   "thread": {
     "minPostsPerThread": 4,
     "maxPostsPerThread": 5,
-    "threadsPerDay": 30,
-    "maxPostsPerDay": 150,
+    "threadsPerDay": 10,
+    "maxPostsPerDay": 50,
+    "minMinutesBetweenThreads": 80,
     "maxReviews": 2,
     "maxFigures": 2,
     "maxEmojisPerPost": 3,
