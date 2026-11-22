@@ -11,9 +11,10 @@ These are what the reviewer flagged most in the Bot Log (15-16 Nov 2026), plus t
 7. **Flat list lines.** A stack of bare items ("Sewa RM800 / Makan RM700") reads like a checklist. Tell it as a sentence or a scene.
 8. **A paragraph longer than 2 lines.** Split it.
 9. **A post that leans on the one before.** No "tadi", no "macam saya cakap". Restate who and what in a few words.
-10. **Journalist wording.** "Satu laporan media", "pakar cakap", "menurut". Say "news ada cakap" or drop the attribution (the source lives in the claims list).
-11. **A product explained with no limit, or with jargon.** Say the limit in plain words in one line ("kena tunggu beberapa bulan dulu baru boleh claim"), never as a disclaimer.
-12. **Two questions in the last post.** At most one, the cheeky one; none is fine too.
-13. **Scolding or shaming.** Admit the upside first ("memang best"), then the turn. Show you understand their situation in a fresh line (not a stock "saya faham"), never "you patut malu".
-14. **An invented person.** No "kawan saya", "client saya", "ada sorang makcik" unless it is in the source. Use "Bayangkan".
-15. **The wrong emoji on a heavy topic.** No 💀 or 😂 on death, illness or a family's loss; use 😬, 🥺 or none.
+10. **Baku words (Arman, 22 Nov).** "Nak bayar sifar" reads like a textbook; say "tak nak bayar langsung" or "nak free". Same for "percuma" (free), "tidak" (tak), "adalah", "sekiranya", "oleh itu", "tersebut".
+11. **Journalist wording.** "Satu laporan media", "pakar cakap", "menurut". Say "news ada cakap" or drop the attribution (the source lives in the claims list).
+12. **A product explained with no limit, or with jargon.** Say the limit in plain words in one line ("kena tunggu beberapa bulan dulu baru boleh claim"), never as a disclaimer.
+13. **Two questions in the last post.** At most one, the cheeky one; none is fine too.
+14. **Scolding or shaming.** Admit the upside first ("memang best"), then the turn. Show you understand their situation in a fresh line (not a stock "saya faham"), never "you patut malu".
+15. **An invented person.** No "kawan saya", "client saya", "ada sorang makcik" unless it is in the source. Use "Bayangkan".
+16. **The wrong emoji on a heavy topic.** No 💀 or 😂 on death, illness or a family's loss; use 😬, 🥺 or none.

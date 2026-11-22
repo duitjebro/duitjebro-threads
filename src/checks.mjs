@@ -11,6 +11,11 @@ const BANNED = [
   [/info umum|angka bayangan|bukan angka rasmi|terma penuh|dokumen polisi|bukan nasihat/i, "disclaimer line"],
   [/\bpremium\b/i, '"premium" (use caruman)'],
   [/\b(dilaporkan|bermula|sekitar)\b/i, 'stiff news word (use "news ada cakap", "start", "lebih kurang")'],
+  // Baku words (Arman, 22 Nov): say it the way people talk.
+  [/\bsifar\b/i, 'baku "sifar" (say "tak bayar langsung", "free", "kosong")'],
+  [/\bpercuma\b/i, 'baku "percuma" (say "free")'],
+  [/\btidak\b/i, 'baku "tidak" (say "tak")'],
+  [/\b(adalah|sekiranya|oleh itu|manakala|tersebut|walau bagaimanapun|bagaimanapun|justeru)\b/i, "baku word (say it like you talk at the mamak)"],
   [/\bpay\s?later\b/, '"Pay Later" is two words with capitals'],
   [/\bPayLater\b/i, '"Pay Later" is two words'],
 ];

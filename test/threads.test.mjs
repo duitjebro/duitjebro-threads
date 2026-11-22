@@ -79,6 +79,8 @@ test("checkThread catches voice, brand, jargon, labels and stiff words", () => {
   assert.match(bad("Nanti gaji you jadi separuh."), /kalau/);
   assert.match(bad("Sekitar 3 bulan je."), /stiff/);
   assert.match(bad("Info umum sahaja."), /disclaimer/);
+  assert.match(bad("Nak bayar sifar bila masuk wad."), /baku/);
+  assert.match(bad("Ini tidak adil."), /baku/);
   assert.equal(checkThread(["Nanti kalau gaji you jadi separuh, macam mana?", ...good.slice(1)]).length, 0);
 });
 
