@@ -112,8 +112,8 @@ export async function publishThread(posts, { replyControl } = {}) {
 
 const REPLY_FIELDS = "id,text,username,timestamp,permalink,is_reply_owned_by_me,replied_to,root_post,has_replies,hide_status";
 
-export const myPosts = ({ limit = 25, since } = {}) =>
-  call("GET", "me/threads", { fields: "id,text,timestamp,permalink,is_reply,has_replies", limit, since });
+export const myPosts = ({ limit = 25, since, until, after } = {}) =>
+  call("GET", "me/threads", { fields: "id,text,timestamp,permalink,is_reply,has_replies", limit, since, until, after });
 
 // Our own replies (including those on other people's threads).
 export const myReplies = ({ limit = 50 } = {}) =>
