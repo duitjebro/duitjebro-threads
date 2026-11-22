@@ -51,7 +51,7 @@ const JARGON = [
 const LABEL = /^\s*(hook|relatable|agitate|empathy|tips?|reframe|cta|step\s*\d+|post\s*\d+)\s*[:：-]/i;
 
 // Money amounts, percentages and big counts. Small everyday counts ("3 anak", "6 bulan") are not figures.
-const FIGURE = /RM\s?\d[\d.,]*(?:\s?(?:k|ribu|juta|bilion|billion)\b)?|\d[\d.,]*\s?(?:%|peratus\b)|\d[\d.,]*\s?(?:ribu|juta|bilion|billion)\b|\b\d{1,3}(?:,\d{3})+\b/gi;
+const FIGURE = /\bRM\s?\d[\d.,]*(?:\s?(?:k|ribu|juta|bilion|billion)\b)?|\d[\d.,]*\s?(?:%|peratus\b)|\d[\d.,]*\s?(?:ribu|juta|bilion|billion)\b|\b\d{1,3}(?:,\d{3})+\b/gi;
 
 export const postLength = (text) => Buffer.byteLength(text, "utf8");
 

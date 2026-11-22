@@ -87,6 +87,7 @@ test("checkThread catches voice, brand, jargon, labels and stiff words", () => {
 test("checkThread caps figures at 2 and emojis at 3 per post", () => {
   assert.deepEqual(figures(["Gaji RM3,000, sewa RM800.", "Gaji RM3,000 tu 48% je. 3 anak, 6 bulan."]), ["rm3,000", "rm800", "48%"]);
   assert.match(checkThread(["Gaji RM3,000, sewa RM800, 48% orang.", ...good.slice(1)]).join(), /3 different money\/percent figures/);
+  assert.deepEqual(figures(["Isi form 30 saat je."]), []); // "form 30" is not RM30
   assert.equal(emojiCount("👉🏻 ok 😬😅"), 3);
   assert.match(checkThread(["Wei 😬😅💀🔥", ...good.slice(1)]).join(), /4 emojis/);
 });
